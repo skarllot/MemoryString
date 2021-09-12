@@ -6,6 +6,7 @@ namespace MemoryString.Split
     {
         private readonly ReadOnlySpan<char> separator;
         private readonly StringSplitOptions options;
+        private readonly bool isSingleResult;
         private ReadOnlySpan<char> textSpan;
         private int count;
 
@@ -19,6 +20,7 @@ namespace MemoryString.Split
             this.separator = separator;
             this.count = count;
             this.options = options;
+            this.isSingleResult = count <= 1 || textSpan.Length == 0;
             this.Current = ReadOnlySpan<char>.Empty;
         }
 
@@ -26,33 +28,68 @@ namespace MemoryString.Split
 
         public bool MoveNext()
         {
-            if (count == 0)
+            if (count <= 0)
             {
                 return false;
             }
 
-            do
+            if (isSingleResult)
             {
-                var lastSpan = textSpan;
-                if (lastSpan.Length == 0)
-                    return false;
-
-                var index = lastSpan.IndexOf(separator);
-                if (index == -1)
+                count = 0;
+                var candidate = textSpan;
+                if (options.HasTrimEntries() && textSpan.Length > 0)
                 {
-                    textSpan = ReadOnlySpan<char>.Empty;
-                    Current = lastSpan;
+                    candidate = candidate.Trim();
+                }
+
+                if (options.HasRemoveEmptyEntries() && candidate.Length == 0)
+                {
+                    Current = ReadOnlySpan<char>.Empty;
+                    return false;
                 }
                 else
                 {
-                    textSpan = lastSpan.Slice(index + separator.Length);
-                    Current = lastSpan.Slice(0, index);
+                    Current = candidate;
+                    return true;
                 }
-            } while (options.HasRemoveEmptyEntries() && Current.Length == 0);
+            }
 
-            if (options.HasTrimEntries())
+            while (true)
             {
-                Current = Current.Trim(' ');
+                var candidate = textSpan;
+                var index = candidate.IndexOf(separator);
+                if (index == -1)
+                {
+                    textSpan = ReadOnlySpan<char>.Empty;
+                    Current = candidate;
+                    count = 0;
+                }
+                else
+                {
+                    textSpan = candidate.Slice(index + separator.Length);
+                    Current = candidate.Slice(0, index);
+                }
+
+                if (options.HasTrimEntries())
+                {
+                    Current = Current.Trim();
+                }
+
+                if (options.HasRemoveEmptyEntries() && Current.Length == 0)
+                {
+                    if (count == 0)
+                        return false;
+                }
+                else
+                {
+                    if (count == 1)
+                    {
+                        textSpan = ReadOnlySpan<char>.Empty;
+                        Current = candidate;
+                    }
+
+                    break;
+                }
             }
 
             count--;

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace MemoryString.Split
 {
@@ -22,5 +23,16 @@ namespace MemoryString.Split
         }
 
         public SplitEnumerator GetEnumerator() => new(textSpan, separator, count, options);
+
+        public IReadOnlyList<string> ToStringList()
+        {
+            var list = new List<string>();
+            foreach (var span in this)
+            {
+                list.Add(span.ToString());
+            }
+
+            return list;
+        }
     }
 }

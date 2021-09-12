@@ -7,21 +7,21 @@ namespace MemoryString
     [EditorBrowsable(EditorBrowsableState.Never)]
     public static class StringSpan
     {
-        public static string[] Split(
+        public static SplitEnumerable Split(
             this ReadOnlySpan<char> text,
             char separator,
             StringSplitOptions options = StringSplitOptions.None)
         {
-            return text.ToString().Split(new[] { separator }, int.MaxValue, options);
+            return Split(text, new ReadOnlySpan<char>(new[] { separator }), int.MaxValue, options);
         }
 
-        public static string[] Split(
+        public static SplitEnumerable Split(
             this ReadOnlySpan<char> text,
             char separator,
             int count,
             StringSplitOptions options = StringSplitOptions.None)
         {
-            return text.ToString().Split(new[] { separator }, count, options);
+            return Split(text, new ReadOnlySpan<char>(new[] { separator }), count, options);
         }
 
         public static string[] Split(

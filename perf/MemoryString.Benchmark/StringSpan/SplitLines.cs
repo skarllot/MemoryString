@@ -37,5 +37,13 @@ namespace MemoryString.Benchmark.StringSpan
             {
             }
         }
+
+        [Benchmark]
+        public void SpanToList()
+        {
+            foreach (var line in Data.AsSpan().Split(Environment.NewLine).ToStringList())
+            {
+            }
+        }
     }
 }
