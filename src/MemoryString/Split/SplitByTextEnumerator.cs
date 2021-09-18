@@ -2,7 +2,7 @@ using System;
 
 namespace MemoryString.Split
 {
-    public ref struct SplitEnumerator
+    public ref struct SplitByTextEnumerator
     {
         private readonly ReadOnlySpan<char> separator;
         private readonly StringSplitOptions options;
@@ -10,7 +10,7 @@ namespace MemoryString.Split
         private ReadOnlySpan<char> textSpan;
         private int count;
 
-        public SplitEnumerator(
+        public SplitByTextEnumerator(
             ReadOnlySpan<char> textSpan,
             ReadOnlySpan<char> separator,
             int count,
@@ -54,10 +54,12 @@ namespace MemoryString.Split
                 }
             }
 
+            var finalSeparator = separator.IsEmpty ? stackalloc char[] { ' ' } : separator;
+
             while (true)
             {
                 var candidate = textSpan;
-                var index = candidate.IndexOf(separator);
+                var index = candidate.IndexOf(finalSeparator);
                 if (index == -1)
                 {
                     textSpan = ReadOnlySpan<char>.Empty;
@@ -66,7 +68,7 @@ namespace MemoryString.Split
                 }
                 else
                 {
-                    textSpan = candidate.Slice(index + separator.Length);
+                    textSpan = candidate.Slice(index + finalSeparator.Length);
                     Current = candidate.Slice(0, index);
                 }
 

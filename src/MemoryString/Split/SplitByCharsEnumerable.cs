@@ -3,28 +3,28 @@ using System.Collections.Generic;
 
 namespace MemoryString.Split
 {
-    public readonly ref struct SplitEnumerable
+    public readonly ref struct SplitByCharsEnumerable
     {
         private readonly ReadOnlySpan<char> textSpan;
-        private readonly ReadOnlySpan<char> separator;
+        private readonly ReadOnlySpan<char> separators;
         private readonly int count;
         private readonly StringSplitOptions options;
 
-        public SplitEnumerable(
+        public SplitByCharsEnumerable(
             ReadOnlySpan<char> textSpan,
-            ReadOnlySpan<char> separator,
+            ReadOnlySpan<char> separators,
             int count,
             StringSplitOptions options)
         {
             this.textSpan = textSpan;
-            this.separator = separator;
+            this.separators = separators;
             this.count = count;
             this.options = options;
         }
 
-        public SplitEnumerator GetEnumerator() => new(textSpan, separator, count, options);
+        public SplitByCharsEnumerator GetEnumerator() => new(textSpan, separators, count, options);
 
-        public IReadOnlyList<string> ToStringList()
+        public List<string> ToStringList()
         {
             var list = new List<string>();
             foreach (var span in this)

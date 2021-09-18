@@ -1,5 +1,5 @@
 ....
-BenchmarkDotNet=v0.13.1, OS=fedora 33
+BenchmarkDotNet=v0.13.1, OS=fedora 34
 AMD Ryzen 5 1600, 1 CPU, 12 logical and 6 physical cores
 .NET SDK=5.0.206
   [Host]   : .NET 5.0.9 (5.0.921.41201), X64 RyuJIT
@@ -9,9 +9,9 @@ Job=.NET 5.0  Runtime=.NET 5.0
 ....
 [options="header"]
 |===
-|        Method|       Mean|      Error|     StdDev|  Ratio|    Gen 0|   Gen 1|  Allocated
-|  StringReader|  60.673 μs|  0.3231 μs|  0.2864 μs|   0.82|  15.0146|       -|  125,704 B
-|         Split|  74.226 μs|  1.0511 μs|  0.9318 μs|   1.00|  15.1367|  4.2725|  127,288 B
-|          Span|   7.844 μs|  0.0262 μs|  0.0245 μs|   0.11|        -|       -|          -
-|    SpanToList|  33.493 μs|  0.2097 μs|  0.1859 μs|   0.45|  15.5029|  4.3945|  129,976 B
+|        Method|       Mean|      Error|     StdDev|  Ratio|   Gen 0|   Gen 1|  Allocated
+|  StringReader|  59.836 μs|  0.0414 μs|  0.0388 μs|   0.81|  1.4648|       -|  125,704 B
+|         Split|  74.332 μs|  0.0491 μs|  0.0435 μs|   1.00|  1.4648|  0.3662|  127,288 B
+|          Span|   8.265 μs|  0.0053 μs|  0.0049 μs|   0.11|       -|       -|          -
+|    SpanToList|  34.227 μs|  0.0194 μs|  0.0162 μs|   0.46|  1.5259|  0.4272|  129,936 B
 |===
