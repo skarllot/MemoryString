@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace MemoryString.Split
+namespace Raiqub.MemoryString.Split
 {
     public readonly ref struct SplitByTextEnumerable
     {

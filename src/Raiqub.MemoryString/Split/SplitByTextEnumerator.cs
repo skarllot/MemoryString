@@ -1,6 +1,6 @@
 using System;
 
-namespace MemoryString.Split
+namespace Raiqub.MemoryString.Split
 {
     public ref struct SplitByTextEnumerator
     {

@@ -3,16 +3,16 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["perf/MemoryString.Benchmark/MemoryString.Benchmark.csproj", "MemoryString.Benchmark/"]
-RUN dotnet restore "perf/MemoryString.Benchmark/MemoryString.Benchmark.csproj"
+COPY ["perf/Raiqub.MemoryString.Benchmark/Raiqub.MemoryString.Benchmark.csproj", "Raiqub.MemoryString.Benchmark/"]
+RUN dotnet restore "perf/Raiqub.MemoryString.Benchmark/Raiqub.MemoryString.Benchmark.csproj"
 COPY . .
-WORKDIR "/src/MemoryString.Benchmark"
-RUN dotnet build "MemoryString.Benchmark.csproj" -c Release -o /app/build
+WORKDIR "/src/Raiqub.MemoryString.Benchmark"
+RUN dotnet build "Raiqub.MemoryString.Benchmark.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "MemoryString.Benchmark.csproj" -c Release -o /app/publish
+RUN dotnet publish "Raiqub.MemoryString.Benchmark.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "MemoryString.Benchmark.dll"]
+ENTRYPOINT ["dotnet", "Raiqub.MemoryString.Benchmark.dll"]

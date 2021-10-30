@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace MemoryString
+namespace Raiqub.MemoryString
 {
     internal static class EnumExtensions
     {

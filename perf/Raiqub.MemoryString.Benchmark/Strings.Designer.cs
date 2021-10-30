@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MemoryString.Benchmark {
+namespace Raiqub.MemoryString.Benchmark {
     using System;
     
     
@@ -28,7 +28,7 @@ namespace MemoryString.Benchmark {
         internal static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("MemoryString.Benchmark.Strings", typeof(Strings).Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Raiqub.MemoryString.Benchmark.Strings", typeof(Strings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

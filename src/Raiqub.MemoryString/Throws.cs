@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Validation;
 
-namespace MemoryString
+namespace Raiqub.MemoryString
 {
     internal static class Throws
     {

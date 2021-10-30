@@ -2,7 +2,7 @@
 using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Running;
 
-namespace MemoryString.Benchmark
+namespace Raiqub.MemoryString.Benchmark
 {
     public static class Program
     {

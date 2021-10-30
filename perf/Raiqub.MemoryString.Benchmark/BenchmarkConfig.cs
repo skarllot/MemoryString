@@ -12,7 +12,7 @@ using BenchmarkDotNet.Order;
 using BenchmarkDotNet.Reports;
 using BenchmarkDotNet.Validators;
 
-namespace MemoryString.Benchmark
+namespace Raiqub.MemoryString.Benchmark
 {
     internal class BenchmarkConfig
         : IConfig

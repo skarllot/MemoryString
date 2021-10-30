@@ -1,9 +1,9 @@
 using System;
 using System.ComponentModel;
-using MemoryString.Split;
+using Raiqub.MemoryString.Split;
 using Validation;
 
-namespace MemoryString
+namespace Raiqub.MemoryString
 {
     [EditorBrowsable(EditorBrowsableState.Never)]
     public static class StringSpan

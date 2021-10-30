@@ -3,7 +3,7 @@ using System.IO;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
 
-namespace MemoryString.Benchmark.StringSpan
+namespace Raiqub.MemoryString.Benchmark.StringSpan
 {
     [AsciiDocExporter]
     [SimpleJob(RuntimeMoniker.Net50)]

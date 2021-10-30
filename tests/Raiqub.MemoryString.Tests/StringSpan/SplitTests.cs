@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace MemoryString.Tests.StringSpan
+namespace Raiqub.MemoryString.Tests.StringSpan
 {
     // Ref: https://github.com/dotnet/corefx/blob/release/3.1/src/System.Runtime/tests/System/String.SplitTests.cs
     public class SplitTests

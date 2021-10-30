@@ -2,7 +2,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace MemoryString.Benchmark
+namespace Raiqub.MemoryString.Benchmark
 {
     internal static class RuntimeContext
     {
