@@ -4,6 +4,7 @@
         <ProjectGuid>{F60E2B46-6EE4-4F42-AFAE-7134865B378F}</ProjectGuid>
         <IsPackable>false</IsPackable>
         <TargetFrameworks>net5.0;netcoreapp3.1</TargetFrameworks>
+        <RootNamespace>MemoryString.Tests</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -21,7 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\MemoryString\MemoryString.csproj" />
+      <ProjectReference Include="..\..\src\Raiqub.MemoryString\Raiqub.MemoryString.csproj" />
     </ItemGroup>
 
 </Project>

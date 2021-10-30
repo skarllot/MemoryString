@@ -5,6 +5,7 @@
         <OutputType>Exe</OutputType>
         <TargetFrameworks>net5.0;netcoreapp3.1</TargetFrameworks>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <RootNamespace>MemoryString.Benchmark</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,7 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\MemoryString\MemoryString.csproj" />
+      <ProjectReference Include="..\..\src\Raiqub.MemoryString\Raiqub.MemoryString.csproj" />
     </ItemGroup>
 
     <ItemGroup>
