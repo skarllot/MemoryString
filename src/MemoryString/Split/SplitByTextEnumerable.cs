@@ -5,10 +5,10 @@ namespace MemoryString.Split
 {
     public readonly ref struct SplitByTextEnumerable
     {
-        private readonly ReadOnlySpan<char> textSpan;
-        private readonly ReadOnlySpan<char> separator;
-        private readonly int count;
-        private readonly StringSplitOptions options;
+        private readonly ReadOnlySpan<char> _textSpan;
+        private readonly ReadOnlySpan<char> _separator;
+        private readonly int _count;
+        private readonly StringSplitOptions _options;
 
         public SplitByTextEnumerable(
             ReadOnlySpan<char> textSpan,
@@ -16,13 +16,13 @@ namespace MemoryString.Split
             int count,
             StringSplitOptions options)
         {
-            this.textSpan = textSpan;
-            this.separator = separator;
-            this.count = count;
-            this.options = options;
+            _textSpan = textSpan;
+            _separator = separator;
+            _count = count;
+            _options = options;
         }
 
-        public SplitByTextEnumerator GetEnumerator() => new(textSpan, separator, count, options);
+        public SplitByTextEnumerator GetEnumerator() => new(_textSpan, _separator, _count, _options);
 
         public List<string> ToStringList()
         {

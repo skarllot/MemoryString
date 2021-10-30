@@ -8,36 +8,36 @@ namespace MemoryString
     [EditorBrowsable(EditorBrowsableState.Never)]
     public static class StringSpan
     {
-        public static SplitByTextEnumerable Split(
+        public static SplitByCharsEnumerable SplitByChar(
             this ReadOnlySpan<char> text,
             char separator,
             StringSplitOptions options = StringSplitOptions.None)
         {
-            return Split(text, separator, int.MaxValue, options);
+            return SplitByChar(text, separator, int.MaxValue, options);
         }
 
-        public static SplitByTextEnumerable Split(
+        public static SplitByCharsEnumerable SplitByChar(
             this ReadOnlySpan<char> text,
             char separator,
             int count,
             StringSplitOptions options = StringSplitOptions.None)
         {
-            var textSeparator = separator == ' '
+            var separators = separator == ' '
                 ? ReadOnlySpan<char>.Empty
                 : new ReadOnlySpan<char>(new[] { separator });
 
-            return SplitByText(text, textSeparator, count, options);
+            return SplitByChar(text, separators, count, options);
         }
 
-        public static SplitByCharsEnumerable SplitByChars(
+        public static SplitByCharsEnumerable SplitByChar(
             this ReadOnlySpan<char> text,
             ReadOnlySpan<char> separators,
             StringSplitOptions options = StringSplitOptions.None)
         {
-            return SplitByChars(text, separators, int.MaxValue, options);
+            return SplitByChar(text, separators, int.MaxValue, options);
         }
 
-        public static SplitByCharsEnumerable SplitByChars(
+        public static SplitByCharsEnumerable SplitByChar(
             this ReadOnlySpan<char> text,
             ReadOnlySpan<char> separators,
             int count,

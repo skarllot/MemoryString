@@ -4,11 +4,12 @@ namespace MemoryString.Split
 {
     public ref struct SplitByCharsEnumerator
     {
-        private readonly ReadOnlySpan<char> separators;
-        private readonly StringSplitOptions options;
-        private readonly bool isSingleResult;
-        private ReadOnlySpan<char> textSpan;
-        private int count;
+        private readonly ReadOnlySpan<char> _separators;
+        private readonly StringSplitOptions _options;
+        private readonly bool _isSingleResult;
+        private ReadOnlySpan<char> _remaining;
+        private int _count;
+        private ReadOnlySpan<char> _current;
 
         public SplitByCharsEnumerator(
             ReadOnlySpan<char> textSpan,
@@ -16,93 +17,91 @@ namespace MemoryString.Split
             int count,
             StringSplitOptions options)
         {
-            this.textSpan = textSpan;
-            this.separators = separators;
-            this.count = count;
-            this.options = options;
-            this.isSingleResult = count <= 1 || textSpan.Length == 0;
-            this.Current = ReadOnlySpan<char>.Empty;
+            _remaining = textSpan;
+            _separators = separators;
+            _count = count;
+            _options = options;
+            _isSingleResult = count <= 1 || textSpan.Length == 0;
+            _current = default;
         }
 
-        public ReadOnlySpan<char> Current { get; private set; }
+        public ReadOnlySpan<char> Current => _current;
 
         public bool MoveNext()
         {
-            if (count <= 0)
+            if (_count <= 0)
             {
                 return false;
             }
 
-            if (isSingleResult)
-            {
-                count = 0;
-                var candidate = textSpan;
-                if (options.HasTrimEntries() && textSpan.Length > 0)
-                {
-                    candidate = candidate.Trim();
-                }
+            return _isSingleResult ? SingleResultMoveNext() : MultiResultMoveNext();
+        }
 
-                if (options.HasRemoveEmptyEntries() && candidate.Length == 0)
-                {
-                    Current = ReadOnlySpan<char>.Empty;
-                    return false;
-                }
-                else
-                {
-                    Current = candidate;
-                    return true;
-                }
+        private bool SingleResultMoveNext()
+        {
+            _count = 0;
+            var candidate = _remaining;
+            if (_options.HasTrimEntries() && _remaining.Length > 0)
+            {
+                candidate = candidate.Trim();
             }
 
-            var finalSeparator = separators.IsEmpty ? stackalloc char[] { ' ' } : separators;
+            if (_options.HasRemoveEmptyEntries() && candidate.Length == 0)
+            {
+                _current = default;
+                return false;
+            }
+            else
+            {
+                _current = candidate;
+                return true;
+            }
+        }
+
+        private bool MultiResultMoveNext()
+        {
+            var actualSeparators = _separators.IsEmpty ? stackalloc char[] { ' ' } : _separators;
 
             while (true)
             {
-                var candidate = textSpan;
-                int index = -1;
-                for (int i = 0; i < finalSeparator.Length; i++)
-                {
-                    index = candidate.IndexOf(finalSeparator[i]);
-
-                    if (index != -1)
-                        break;
-                }
+                var candidate = _remaining;
+                int index = candidate.IndexOfAny(actualSeparators);
 
                 if (index == -1)
                 {
-                    textSpan = ReadOnlySpan<char>.Empty;
-                    Current = candidate;
-                    count = 0;
+                    _remaining = default;
+                    _current = candidate;
+                    _count = 0;
                 }
                 else
                 {
-                    textSpan = candidate.Slice(index + 1);
-                    Current = candidate.Slice(0, index);
+                    _remaining = candidate.Slice(index + 1);
+                    _current = candidate.Slice(0, index);
                 }
 
-                if (options.HasTrimEntries())
+                if (_options.HasTrimEntries())
                 {
-                    Current = Current.Trim();
+                    _current = _current.Trim();
                 }
 
-                if (options.HasRemoveEmptyEntries() && Current.Length == 0)
+                if (_options.HasRemoveEmptyEntries() && _current.Length == 0)
                 {
-                    if (count == 0)
+                    if (_count == 0)
                         return false;
                 }
                 else
                 {
-                    if (count == 1)
+                    if (_count == 1)
                     {
-                        textSpan = ReadOnlySpan<char>.Empty;
-                        Current = candidate;
+                        _remaining = default;
+                        _current = candidate;
                     }
 
                     break;
                 }
             }
 
-            count--;
+            _count--;
             return true;
         }
     }
