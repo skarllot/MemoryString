@@ -1,24 +1,23 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace Raiqub.MemoryString
-{
-    internal static class EnumExtensions
-    {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool HasRemoveEmptyEntries(this StringSplitOptions value)
-        {
-            return (value & StringSplitOptions.RemoveEmptyEntries) != 0;
-        }
+namespace Raiqub.MemoryString;
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool HasTrimEntries(this StringSplitOptions value)
-        {
+internal static class EnumExtensions
+{
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool HasRemoveEmptyEntries(this StringSplitOptions value)
+    {
+        return (value & StringSplitOptions.RemoveEmptyEntries) != 0;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool HasTrimEntries(this StringSplitOptions value)
+    {
 #if NET5_0_OR_GREATER
-            return (value & StringSplitOptions.TrimEntries) != 0;
+        return (value & StringSplitOptions.TrimEntries) != 0;
 #else
             return false;
 #endif
-        }
     }
 }

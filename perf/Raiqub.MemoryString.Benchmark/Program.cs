@@ -2,22 +2,21 @@
 using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Running;
 
-namespace Raiqub.MemoryString.Benchmark
+namespace Raiqub.MemoryString.Benchmark;
+
+public static class Program
 {
-    public static class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
-        {
-            var config = new BenchmarkConfig()
-                .WithOption(ConfigOptions.DisableLogFile, true)
-                .WithArtifactsPath(GetArtifactsPath());
+        var config = new BenchmarkConfig()
+            .WithOption(ConfigOptions.DisableLogFile, true)
+            .WithArtifactsPath(GetArtifactsPath());
 
-            BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args, config);
-        }
+        BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args, config);
+    }
 
-        private static string GetArtifactsPath()
-        {
-            return Path.Combine(RuntimeContext.SolutionDirectory, "docs", "benchmarks");
-        }
+    private static string GetArtifactsPath()
+    {
+        return Path.Combine(RuntimeContext.SolutionDirectory, "docs", "benchmarks");
     }
 }
