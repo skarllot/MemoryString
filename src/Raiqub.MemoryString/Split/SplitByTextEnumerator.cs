@@ -1,5 +1,3 @@
-using System;
-
 namespace Raiqub.MemoryString.Split;
 
 public ref struct SplitByTextEnumerator
